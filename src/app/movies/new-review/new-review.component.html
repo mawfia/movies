@@ -1,0 +1,64 @@
+<div class="container" style="outline: solid black 1px; padding-bottom: 10px;">
+	<div class="col-sm-8"><h2 style="color: gray;">Add a review for <em>{{movie.title}}</em></h2></div>
+	<form #formData='ngForm' (submit)="addReview(formData.value)" novalidate>
+	  <div class="form-group">
+		<label for="name">Reviewer's Name</label>
+		<input 
+			type="text" 
+			class="form-control" 
+			id="name" 
+			aria-describedby="nameHelp" 
+			placeholder="Name"
+			name="name"
+			required
+			minlength="3"
+			maxlength="25"
+			[(ngModel)]="review.name"
+			#name="ngModel"
+		>
+		<small id="nameHelp" class="form-text text-muted" *ngIf="name.errors">Name of reveiwer must have atleast 3 characters.</small>
+		<small id="nameHelp" class="form-text text-muted" *ngIf="!(name.errors || (errors && errors.name)) && name.dirty" class="valid">Reviewer's name is valid.</small>
+		<small id="nameHelp" class="form-text text-muted" *ngIf="errors && errors.name" class="error">{{errors.name}}</small>
+	  </div>
+	  <div class="form-group input-group mb-3">
+		  <div class="input-group-prepend">
+			<label class="input-group-text" for="inputGroupSelect01">Rating</label>
+		  </div>
+		  <div class="row col-md-11">
+			  <select class="custom-select" id="inputGroupSelect01"
+				name="rating"
+				aria-describedby="ratingHelp"
+				required
+				[(ngModel)]="review.rating"
+				#rating="ngModel"
+			  ><option *ngFor="let rating of ratings; let i = index" [value]="i" selected>{{rating}}</option>
+			  </select>
+			</div>
+		  <div class="row">
+			<small id="ratingHelp" class="form-text text-muted col-md-12" class="warning" style="margin-left: 15px;" *ngIf="rating.touched && review.rating < 1">Rating must be 1 to 5 stars.</small>
+			<small id="ratingHelp" class="form-text text-muted col-md-12" class="valid" style="margin-left: 15px;" *ngIf="rating.dirty && review.rating > 1">Valid Rating</small>
+		  </div>
+	  </div>
+	  <div class="form-group">
+		<label for="review">Review</label>
+		<textarea 
+			type="text" 
+			class="form-control" 
+			id="reveiw" 
+			aria-describedby="reviewHelp" 
+			style="width:400px; height:150px; resize:none;"
+			name="summary"
+			required
+			minlength="3"
+			maxlength="200"
+			[(ngModel)]="review.summary"
+			#summary="ngModel"
+		></textarea>
+		<small id="reviewHelp" class="form-text text-muted" *ngIf="summary.errors && summary.dirty" class="warning">Review must contain atleast 3 characters.</small>
+		<small id="reviewHelp" class="form-text text-muted" *ngIf="!(summary.errors || (errors && errors.summary))" class="valid">Review summary is valid.</small>
+		<small id="reviewHelp" class="form-text text-muted" *ngIf="errors && errors.summary" class="error">{{errors.summary}}</small>
+	  </div>
+	  <button type="submit" class="btn btn-primary btn-md active" [disabled]="name.errors || review.rating < 1 || summary.errors">Submit</button>
+	  <a role="button" class="btn btn-secondary btn-md active" [routerLink]="['/movies']">Cancel</a>
+	</form>
+</div>
