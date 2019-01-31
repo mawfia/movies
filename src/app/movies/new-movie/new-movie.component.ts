@@ -1,4 +1,5 @@
 import { Component, OnInit, Output, Input, EventEmitter } from '@angular/core';
+import { of, Observable, BehaviorSubject, Observer } from 'rxjs';
 import { Movie } from '../../movie';
 import { Review } from '../../review';
 import { MovieService } from './../../services/movie.service';
@@ -31,14 +32,14 @@ export class NewMovieComponent implements OnInit {
 
 	create(movie: Movie): void{
 		this.errors = null;
-		this._movieService.create(this.movie).subscribe( result => {
+		let observable = this._movieService.create(this.movie).subscribe( result => {
 			if(result['message'] == 'Success') {
+				this._movieService.index();
 				this.movie = new Movie();
 				this.movie.reviews.push(new Review());
 				this.cancel();
 			}
 			else this.errors = result['errors'];
 		});
-	
 	}
 }

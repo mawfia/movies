@@ -22,11 +22,7 @@ export class MovieService {
 	
 	create(movie: Movie): Observable<{}>{
 		
-		let observable = this._http.post<any>('/movies/create', movie);
-		
-		observable.subscribe( result => { this.index(); console.log(result); } );		
-		
-		return observable;
+		return this._http.post<any>('/movies/create', movie);
 	}
 	
 	movie(id: string): Observable<{}>{
