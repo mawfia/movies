@@ -57,7 +57,7 @@ TECHNOLOGY USED:
 
 6.  The application is deployed on a AWS account for cloud services including Ubuntu configuration and management.
 
-This web application may be viewed at: http://54.188.240.136/
+This web application may be viewed at: http://54.149.100.125/
 
 Current Maintainer:
  * M. Andrew Williams
